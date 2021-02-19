@@ -26,6 +26,15 @@ enemiesGroup = pygame.sprite.Group()
 Player.containers = playerGroup
 Enemy.containers = enemiesGroup
 
+game_started = False
+
+def StartGame():
+    global game_started
+    global mr_player
+    
+    game_started = True
+    mr_player.__init__(screen, game_width/2, game_height/2)
+
 
 ##################### Loop ###########################################################
 while running:
@@ -43,6 +52,12 @@ while running:
                 mr_player.shoot()
         screen.blit(background_pic,(0, 0))
         #screen.blit(enemy_pic,(100, 100))
+        if not game_started:
+            events = pygame.event.get()
+            for event in events:
+                if event.type == pygame.KEYDOWN:
+                    StartGame()
+                    break
         
 
 
