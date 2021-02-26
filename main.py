@@ -40,7 +40,6 @@ def StartGame():
 while running:
     # Makes the game stop if the player clicks the X or presses esc
         for event in pygame.event.get():
-        
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -80,8 +79,8 @@ while running:
                 new_enemy.y = random.randint(0, game_height)
             enemy_spawn_timer = enemy_spawn_timer_max
 
-
-        mr_player.update
+        mr_player.update(screen)
+        
         for enemy in enemiesGroup:
             enemy.update(screen)
         # Tell pygame to update the screen
