@@ -57,8 +57,13 @@ while running:
                 if event.type == pygame.KEYDOWN:
                     StartGame()
                     break
-        
 
+        #if keys[pygame.K_RIGHT]:
+            #mr_player.move(1, 0)
+        #if keys[pygame.K_LEFT]:
+           # mr_player.move(-1, 0)
+        if pygame.mouse.get_pressed()[0]:
+            mr_player.shoot()
 
         # Make enemy spawn happen
         enemy_spawn_timer -= 1

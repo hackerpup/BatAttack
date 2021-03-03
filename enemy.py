@@ -20,11 +20,19 @@ class Enemy (pygame.sprite.Sprite):
         self.rect.center = (self.x, self.y)
         self.player = player
         self.angle = 0
-        self.speed = 0.9
+        self.speed = 1 
+        self.animation_timer_max = 16
+        self.animation_timer = self.animation_timer_max
+        self.animation_frame = 0
         
 
     def update(self, screen):
         self.animation_timer -= 1
+        if self.animation_timer <= 0:
+            self.animation_timer = self.animation_timer_max
+            self.animation_frame += 1
+            if self.animation_frame > 1:
+                self.animation_frame = 0
         self.angle = toolbox.angleBetweenPoints(self.x, self.y, self.player.x, self.player.y)
 
         angle_rads = math.radians(self.angle)
