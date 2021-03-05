@@ -2,6 +2,7 @@ import pygame
 import random
 from enemy import Enemy
 from player import Player
+from projectile import CannonBall
 
 # Start the game
 pygame.init()
@@ -21,9 +22,12 @@ enemy_pic = pygame.image.load("./assets/bat_up.png")
 mr_player = Player(screen, 0, 0)
 
 playerGroup = pygame.sprite.Group()
+cannonballsGroup = pygame.sprite.Group()
 enemiesGroup = pygame.sprite.Group()
 
+
 Player.containers = playerGroup
+CannonBall.containers = cannonballsGroup
 Enemy.containers = enemiesGroup
 
 game_started = False
@@ -85,9 +89,15 @@ while running:
             enemy_spawn_timer = enemy_spawn_timer_max
 
         mr_player.update(screen)
+
+        #TODO: JUST LIKE ENEMIES GROUP BELOW, YOU NEED A PROJECTILE GROUP HERE. 
+        # this will require a couple lines of code also in the beginning of your main.py script as well
+        # as a line in your __init()__ for projectile class. 
         
         for enemy in enemiesGroup:
             enemy.update(screen)
+        for cannonball in cannonballsGroup:
+            cannonball.update()
         # Tell pygame to update the screen
         pygame.display.flip()
         clock.tick(50)

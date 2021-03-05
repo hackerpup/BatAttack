@@ -5,6 +5,7 @@ import math
 
 class CannonBall(pygame.sprite.Sprite):
     def __init__(self, screen, x, y, angle):
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.screen = screen
         self.x = x
         self.y = y

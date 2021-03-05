@@ -1,5 +1,6 @@
 import pygame
 import toolbox
+from enemy import Enemy
 from projectile import CannonBall
 
 class Player(pygame.sprite.Sprite):
@@ -30,7 +31,7 @@ class Player(pygame.sprite.Sprite):
 
     def shoot(self):
         if self.shoot_cooldown <= 0 and self.alive:
-             projectile.CannonBall(self.screen, self.x, self.y, self.angle)
+            CannonBall(self.screen, self.x, self.y, self.angle)
 
     def move(self, x_movement, y_movement, crates):
         if self.alive:
