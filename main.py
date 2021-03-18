@@ -95,7 +95,7 @@ while running:
         # as a line in your __init()__ for projectile class. 
         
         for enemy in enemiesGroup:
-            enemy.update(screen)
+            enemy.update(cannonballsGroup,screen)
         for cannonball in cannonballsGroup:
             cannonball.update()
         # Tell pygame to update the screen

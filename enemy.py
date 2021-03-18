@@ -2,6 +2,8 @@ import pygame
 import toolbox
 import math
 import random
+import projectile
+
 
 # enemy class
 class Enemy (pygame.sprite.Sprite):
@@ -21,12 +23,14 @@ class Enemy (pygame.sprite.Sprite):
         self.player = player
         self.angle = 0
         self.speed = 1 
+        self.damage = 1
+        self.health = 10
         self.animation_timer_max = 16
         self.animation_timer = self.animation_timer_max
         self.animation_frame = 0
         
 
-    def update(self, screen):
+    def update(self, projectiles, screen):
         self.animation_timer -= 1
         if self.animation_timer <= 0:
             self.animation_timer = self.animation_timer_max
@@ -34,6 +38,11 @@ class Enemy (pygame.sprite.Sprite):
             if self.animation_frame > 1:
                 self.animation_frame = 0
         self.angle = toolbox.angleBetweenPoints(self.x, self.y, self.player.x, self.player.y)
+
+        for projectile in projectiles:
+            if self.rect.colliderect(projectile.rect):
+                self.getHit(projectile.damage)
+                #projectile.explode()
 
         angle_rads = math.radians(self.angle)
         self.x_move = math.cos(angle_rads) * self.speed
@@ -44,3 +53,12 @@ class Enemy (pygame.sprite.Sprite):
         self.y = new_y
         self.rect.center = (self.x, self.y)
         self.screen.blit(self.image, self.rect)
+    
+    def getHit (self, damage):
+        self.x -= self.x_move * 7
+        self.y -= self.y_move * 7
+        self.health -= damage
+        if self.health <= 0:
+            self.health = 98999
+
+            self.kill()
