@@ -13,7 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (self.x, self.y)
         self.alive = True
         self.speed = 8
-        self.angle = 0 
+        self.angle = 50
         self.shoot_cooldown = 0
         self.shoot_cooldown_max = 10
     
@@ -32,6 +32,8 @@ class Player(pygame.sprite.Sprite):
     def shoot(self):
         if self.shoot_cooldown <= 0 and self.alive:
             CannonBall(self.screen, self.x, self.y, self.angle)
+
+        self.shoot_cooldown = self.shoot_cooldown_max
 
     def move(self, x_movement, y_movement, crates):
         if self.alive:

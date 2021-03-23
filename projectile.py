@@ -35,7 +35,6 @@ class CannonBall(pygame.sprite.Sprite):
             self.kill()
         elif self.y > self.screen.get_height() + self.image.get_height():
             self.kill()
-
             
         self.screen.blit(self.image, self.rect)
 

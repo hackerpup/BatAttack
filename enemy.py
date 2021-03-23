@@ -34,9 +34,9 @@ class Enemy (pygame.sprite.Sprite):
         self.animation_timer -= 1
         if self.animation_timer <= 0:
             self.animation_timer = self.animation_timer_max
-            self.animation_frame += 1
-            if self.animation_frame > 1:
-                self.animation_frame = 0
+           # self.animation_frame += 1
+            #if self.animation_frame > 1:
+                #self.animation_frame = 0
         self.angle = toolbox.angleBetweenPoints(self.x, self.y, self.player.x, self.player.y)
 
         for projectile in projectiles:
@@ -55,8 +55,8 @@ class Enemy (pygame.sprite.Sprite):
         self.screen.blit(self.image, self.rect)
     
     def getHit (self, damage):
-        self.x -= self.x_move * 7
-        self.y -= self.y_move * 7
+        #self.x -= self.x_move * 7
+        #self.y -= self.y_move * 7
         self.health -= damage
         if self.health <= 0:
             self.health = 98999
