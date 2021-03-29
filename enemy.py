@@ -15,9 +15,6 @@ class Enemy (pygame.sprite.Sprite):
         self.screen = screen
         self.image = pygame.image.load("./assets/bat_up.png")
         self.image2 = pygame.image.load("./assets/bat_down.png")
-        self.animation_timer_max = 16
-        self.animation_timer = self.animation_timer_max
-        self.animation_frame = 0
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
         self.player = player
@@ -31,12 +28,7 @@ class Enemy (pygame.sprite.Sprite):
         
 
     def update(self, projectiles, screen):
-        self.animation_timer -= 1
-        if self.animation_timer <= 0:
-            self.animation_timer = self.animation_timer_max
-           # self.animation_frame += 1
-            #if self.animation_frame > 1:
-                #self.animation_frame = 0
+       
         self.angle = toolbox.angleBetweenPoints(self.x, self.y, self.player.x, self.player.y)
 
         for projectile in projectiles:
@@ -53,6 +45,16 @@ class Enemy (pygame.sprite.Sprite):
         self.y = new_y
         self.rect.center = (self.x, self.y)
         self.screen.blit(self.image, self.rect)
+        self.animation_timer -= 1
+        if self.animation_timer <= 0:
+            self.animation_timer = self.animation_timer_max
+            self.animation_frame += 1
+            if self.animation_frame > 1:
+                self.animation_frame = 0
+        if self.animation_frame == 0:
+            screen.blit(self.image, self.rect)
+        else:
+            screen.blit(self.image2, self.rect)
     
     def getHit (self, damage):
         #self.x -= self.x_move * 7
