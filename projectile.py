@@ -1,6 +1,7 @@
 import pygame
 import toolbox
 import math
+import projectile
 #from explosion import Explosion
 
 class CannonBall(pygame.sprite.Sprite):
@@ -20,11 +21,14 @@ class CannonBall(pygame.sprite.Sprite):
         self.y_move = -math.sin(self.angle_rads) * self.speed
         self.damage = 6
         
+    def explode(self):
+        self.kill()
 
     def update(self):
         self.x += self.x_move
         self.y += self.y_move
         self.rect.center = (self.x, self.y)
+    
 
         # despawn balloons
         if self.x < -self.image.get_width():

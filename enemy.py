@@ -44,7 +44,6 @@ class Enemy (pygame.sprite.Sprite):
         self.x = new_x
         self.y = new_y
         self.rect.center = (self.x, self.y)
-        self.screen.blit(self.image, self.rect)
         self.animation_timer -= 1
         if self.animation_timer <= 0:
             self.animation_timer = self.animation_timer_max
@@ -55,6 +54,12 @@ class Enemy (pygame.sprite.Sprite):
             screen.blit(self.image, self.rect)
         else:
             screen.blit(self.image2, self.rect)
+
+        for projectile in projectiles:
+            if self.rect.colliderect(projectile.rect):
+                self.getHit(projectile.damage)
+                projectile.explode()
+
     
     def getHit (self, damage):
         #self.x -= self.x_move * 7
