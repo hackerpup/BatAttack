@@ -2,6 +2,6 @@
 
 ### Early version
 
-![snippit](/docs/images/codesnippit.PNG)
+![snippit](/docs/images/screenshot.PNG)
 
-My incomplete version of the game
+In my game Bat Attack, you shoot cannonballs to kill the bats 
