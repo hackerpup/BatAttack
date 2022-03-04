@@ -3,6 +3,7 @@ import random
 from enemy import Enemy
 from player import Player
 from projectile import CannonBall
+from Hud import HUD
 
 # Start the game
 pygame.init()
@@ -21,6 +22,7 @@ enemy_pic = pygame.image.load("./assets/bat_up.png")
 
 mr_player = Player(screen, 0, 0)
 
+
 playerGroup = pygame.sprite.Group()
 cannonballsGroup = pygame.sprite.Group()
 enemiesGroup = pygame.sprite.Group()
@@ -32,11 +34,15 @@ Enemy.containers = enemiesGroup
 
 game_started = False
 
+hud = HUD(screen, mr_player)
+
 def StartGame():
     global game_started
     global mr_player
+    global hud 
     
     game_started = True
+    hud.state = 'ingame'
     mr_player.__init__(screen, game_width/2, game_height/2)
 
 
@@ -50,7 +56,7 @@ while running:
                 running = False
         if game_started:
             # deal with player input
-            keys = pygame.key.get_pressed()
+            
             if pygame.mouse.get_pressed()[0]:
                 mr_player.shoot()
         screen.blit(background_pic,(0, 0))
@@ -62,10 +68,12 @@ while running:
                     StartGame()
                     break
 
-        #if keys[pygame.K_RIGHT]:
-            #mr_player.move(1, 0)
-        #if keys[pygame.K_LEFT]:
-           # mr_player.move(-1, 0)
+        # not entirely figured out yet
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RIGHT]:
+            mr_player.move(1, 0)
+        if keys[pygame.K_LEFT]:
+            mr_player.move(-1, 0)
         if pygame.mouse.get_pressed()[0]:
             mr_player.shoot()
 
@@ -90,9 +98,13 @@ while running:
 
         mr_player.update(screen)
 
-        #TODO: JUST LIKE ENEMIES GROUP BELOW, YOU NEED A PROJECTILE GROUP HERE. 
-        # this will require a couple lines of code also in the beginning of your main.py script as well
-        # as a line in your __init()__ for projectile class. 
+        if not mr_player.alive:
+            if hud.state == 'ingame':
+                hud.state = 'gameover'
+
+            
+        hud.update()
+        
         
         for enemy in enemiesGroup:
             enemy.update(cannonballsGroup,screen)
@@ -102,5 +114,4 @@ while running:
         pygame.display.flip()
         clock.tick(50)
         pygame.display.set_caption("MY GAME fps: " + str(clock.get_fps()))
-
 
