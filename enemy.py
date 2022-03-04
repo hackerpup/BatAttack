@@ -19,10 +19,10 @@ class Enemy (pygame.sprite.Sprite):
         self.rect.center = (self.x, self.y)
         self.player = player
         self.angle = 0
-        self.speed = 1 
+        self.speed = 3 
         self.damage = 1
         self.health = 10
-        self.animation_timer_max = 16
+        self.animation_timer_max = 14
         self.animation_timer = self.animation_timer_max
         self.animation_frame = 0
         
@@ -67,5 +67,6 @@ class Enemy (pygame.sprite.Sprite):
         self.health -= damage
         if self.health <= 0:
             self.health = 98999
+            self.player.getScore(20)
 
             self.kill()
